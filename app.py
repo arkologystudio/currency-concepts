@@ -32,16 +32,18 @@ from model import p_transact, s_balance
 from radcad import Model, Simulation, Experiment
 from radcad.engine import Engine, Backend
 
-n_agents = st.slider('Number of agents', 5, 50, 25)  # min: 0h, max: 23h, default: 17h
-
+n_agents = st.slider('Number of agents', 10, 200, 100)  # min: 0h, max: 23h, default: 17h
+avg_transaction_ammount = st.slider('AVG transaction ammount', 10, 100, 20)
 # Experiment
 
 params = {
     "n_agents": [n_agents],
+    "avg_transaction_ammount": [avg_transaction_ammount]
 }
 
 initial_state = {
-    "agents": np.random.randint(500, 1000, params["n_agents"][0]), 
+    "agents": np.random.randint(450, 550, params["n_agents"][0]), # randomize starting balances
+    
 }
 
 state_update_blocks = [
@@ -79,19 +81,9 @@ if __name__ == "__main__":
 
     # Expand agents
     df_2 = df.apply(lambda row: list(row.agents), axis=1, result_type='expand')
-    st.dataframe(df_2)
+    #st.dataframe(df_2)
 
 
-    # df = df.iloc[[0]]
-    # st.dataframe(df)
-    
-    
-    # Matplot
-
-    # fig, ax = plt.subplots()
-    # ax.bar(df, height=1)
-
-    # st.pyplot(fig)
 
     # ANIMATE
 
@@ -100,6 +92,7 @@ if __name__ == "__main__":
     plot = ax.bar([agent for agent in df_2], df_2.iloc[0])
     ax.set(xlabel='Agents', ylabel='Balance (USD)',
        title='Account Balances')
+    
 
     st.subheader('Market Simulator')
 
@@ -110,8 +103,10 @@ if __name__ == "__main__":
         #df_2.sort_index(inplace=True)
 
         ax.clear()
+        
         state = df_2.iloc[timestep]
         plot = ax.bar([agent for agent in df_2], state)
+        ax.set_ylim([0, 1000])
         return [plot]
 
     anim = animation.FuncAnimation(
