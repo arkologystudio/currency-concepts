@@ -1,4 +1,5 @@
-import pandas as pd
+
+
 
 def post_processing(df):
     '''
@@ -8,4 +9,6 @@ def post_processing(df):
     df: simulation dataframe
     '''
 
-    # df = df.apply(lambda row: list(row.agents), axis=1, result_type='expand')
+    df = df.apply(lambda row: list(row.agents), axis=1, result_type='expand')
+
+    return df
