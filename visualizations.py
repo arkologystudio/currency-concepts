@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 import matplotlib.animation as animation
 import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
@@ -7,7 +8,7 @@ import plotly.express as px
 
 from experiment import TIMESTEPS
 
-def marketAnimation(df):
+def chart_market_animation(df):
     #fig = plt.figure()
     fig, ax = plt.subplots(1, 1)
     plot = ax.bar([agent for agent in df], df.iloc[0])
@@ -38,3 +39,9 @@ def marketAnimation(df):
     )
 
     components.html(anim.to_jshtml(), height=800)
+
+
+
+def chart_gini(df):
+
+    st.line_chart(df)

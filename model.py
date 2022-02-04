@@ -14,8 +14,7 @@ def p_transact(params, substep, state_history, previous_state):
     mean = params["avg_transaction_ammount"]
 
     for i in range(nAgents):
-        recipient = random.randint(0, nAgents-1, dtype=np.uint8)
-        #ammount = random.randint(10, min(100, agentBalances[i]))
+        recipient = random.randint(0, nAgents, dtype=np.uint16)
         ammount = random.normal(mean, mean/10)
 
         agentBalances[i] -= ammount
@@ -25,8 +24,28 @@ def p_transact(params, substep, state_history, previous_state):
     return {"balances": agentBalances}      
 
 
+def p_gini(params, substep, state_history, previous_state):
+
+    b = previous_state["agents"]
+
+
+    # Mean absolute difference 
+    gini_mean_diff = np.abs(np.subtract.outer(b, b)).mean()
+    # Relative mean absolute difference
+    r_gini_mean_diff = gini_mean_diff / np.mean(b)
+    
+    gini = r_gini_mean_diff/2
+
+    return {"gini": gini}
+
+
+
+
+
 # STATE UPDATE FUNCTIONS
 
 def s_balance(params, substep, state_history, previous_state, policy_input):
     return "agents", policy_input["balances"]
 
+def s_gini(params, substep, state_history, previous_state, policy_input):
+    return "gini", policy_input["gini"]
