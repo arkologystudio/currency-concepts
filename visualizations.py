@@ -6,9 +6,8 @@ import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
 import plotly.express as px    
 
-from experiment import TIMESTEPS
 
-def chart_market_animation(df):
+def chart_market_animation(df, TIMESTEPS):
     #fig = plt.figure()
     fig, ax = plt.subplots(1, 1)
     plot = ax.bar([agent for agent in df], df.iloc[0])
@@ -16,14 +15,11 @@ def chart_market_animation(df):
        title='Account Balances')
     
 
-    st.subheader('Market Simulator')
-
     def animate_func(timestep):
         
         # Sort ??
         #df_2.sort_values(by = timestep, axis=1, ascending = False)
         #df_2.sort_index(inplace=True)
-
         ax.clear()
         
         state = df.iloc[timestep]
@@ -38,7 +34,7 @@ def chart_market_animation(df):
         interval=200,  # in ms
     )
 
-    components.html(anim.to_jshtml(), height=800)
+    components.html(anim.to_jshtml(), height=600)
 
 
 

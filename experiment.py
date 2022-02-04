@@ -33,7 +33,7 @@ state_update_blocks = [
     }
 ]
 
-TIMESTEPS = 60
+TIMESTEPS = 5
 RUNS = 1
 
 model = Model(
