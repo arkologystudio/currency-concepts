@@ -5,6 +5,7 @@ import matplotlib.animation as animation
 import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
 import plotly.express as px    
+import pandas as pd
 
 
 def chart_market_animation(df, TIMESTEPS):
@@ -24,7 +25,7 @@ def chart_market_animation(df, TIMESTEPS):
         
         state = df.iloc[timestep]
         plot = ax.bar([agent for agent in df], state)
-        ax.set_ylim([0, 1000])
+        ax.set_ylim([0, 5000])
         return [plot]
 
     anim = animation.FuncAnimation(
@@ -39,5 +40,5 @@ def chart_market_animation(df, TIMESTEPS):
 
 
 def chart_gini(df):
-
+    
     st.line_chart(df, use_container_width=True)

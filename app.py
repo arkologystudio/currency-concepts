@@ -16,8 +16,8 @@ from experiment import simulation
 # Introduction
 st.title("Currency Concepts | 2022")
 st.subheader("Model: Interest-bearing Loans - V.0.1")
-st.text("Agent-based radCAD/cadCAD simulation of a simple market economy,")
-st.text("which aims to demonstrate the effect of interest-bearing loans")
+st.text("Agent-based radCAD/cadCAD simulation of a simple market economy.")
+st.text("The model aims to demonstrate the effect of interest-bearing loans")
 st.text("on wealth inequality indeces.")
 
 
@@ -27,26 +27,22 @@ st.subheader("Simulation parameters:")
 col1, col2, col3 = st.columns(3)
 with col1:
     n_agents = st.slider('Number of agents', 10, 200, 30, 10)  # params: min, max, default, step
-    avg_transaction_ammount = st.slider('AVG transaction ammount', 10, 100, 20, 10)
+    avg_transaction_ammount = st.slider('AVG transaction ammount', 10, 150, 100, 10)
+    st.markdown("**Simulation time horizon:**")
+    TIMESTEPS = st.slider("Days: ", 14, 28*12, 28, 14)
+    
 
 with col2:
     st.subheader("")
     
 with col3:
     st.subheader("")
-    st.markdown("**Simulation time horizon:**")
-    TIMESTEPS = st.slider("Days: ", 14, 28*12, 28, 14)
-    
-
-col1, col2 = st.columns(2)
-with col1:
+    interest_rate = st.slider("Interets Rate (%):", 1.0, 10.0, 2.0, 0.5) / 100
     loan_type = st.selectbox("Loan type:", ('No Interest', 'Interest'))
     interest = False
     if loan_type == 'Interest': 
         interest = True
     
-with col2:
-    interest_rate = st.slider("Interets Rate (%):", 1.0, 25.0, 3.5, 0.5)
 
 
 
@@ -59,7 +55,7 @@ simulation.model.params.update({
 })
 
 simulation.model.initial_state.update({
-    "balances": np.random.randint(450, 550, n_agents)
+    "balances": np.full(n_agents, 2000,  dtype=int)
 })
 
 
@@ -68,8 +64,14 @@ if __name__ == "__main__":
 
     simulation.timesteps = TIMESTEPS
 
+    transactionChart = st.checkbox("Show market simulator") 
+    st.text("(Note: increases load time significantly")
+    st.text("--------------------------------")
+
+    simulate = st.button("Simulate")
+
     # SIMULATE
-    if st.button('Simulate'):
+    if simulate:
 
         st.write("Running simulation ..")
         result = simulation.run()
@@ -83,16 +85,19 @@ if __name__ == "__main__":
 
         # Plot data:
         st.subheader("Market Simulator")
-        chart_market_animation(df_balance_spread, TIMESTEPS)
+        if transactionChart:
+            chart_market_animation(df_balance_spread, TIMESTEPS)
 
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("Gini Index")
-            df_gini = gini_index(df, TIMESTEPS)
-            chart_gini(df_gini)
+        st.subheader("Gini Coefficient")
+        df_gini = gini_index(df, TIMESTEPS)
+        chart_gini(df_gini)
 
-        with col2:
-            st.subheader("Trade Frequency")
+        # col1, col2 = st.columns(2)
+        # with col1:
+        #     
+
+        # with col2:
+        #     st.subheader("Trade Frequency")
             
 
         
