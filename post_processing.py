@@ -2,21 +2,13 @@
 import numpy as np
 from pandas import DataFrame
 
-def post_processing(df):
-    '''
-    Refine and extract metrics from the simulation
-    
-    Parameters:
-    df: simulation dataframe
-    '''
-
-    df = df.apply(lambda row: list(row.agents), axis=1, result_type='expand')
-
-    return df
+def expand(df):
+    return df.apply(lambda row: list(row.balances), axis=1, result_type='expand')
+   
 
 def gini_index(df, TIMESTEPS):
 
-    df = df.apply(lambda row: list(row.agents), axis=1, result_type='expand') # expand agent array
+    df = df.apply(lambda row: list(row.balances), axis=1, result_type='expand') # expand agent array
 
     gini_arr = np.zeros(TIMESTEPS)
 

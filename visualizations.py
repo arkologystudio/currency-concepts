@@ -40,4 +40,4 @@ def chart_market_animation(df, TIMESTEPS):
 
 def chart_gini(df):
 
-    st.line_chart(df)
+    st.line_chart(df, use_container_width=True)
