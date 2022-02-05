@@ -17,28 +17,12 @@ def p_transact(params, substep, state_history, previous_state):
         recipient = random.randint(0, nAgents, dtype=np.uint16)
         ammount = random.normal(mean, mean/10)
 
-        agentBalances[i] -= ammount
-        agentBalances[recipient] += ammount
+        if agentBalances[i] > ammount:
+            agentBalances[i] -= ammount
+            agentBalances[recipient] += ammount
 
 
     return {"balances": agentBalances}      
-
-
-def p_gini(params, substep, state_history, previous_state):
-
-    b = previous_state["agents"]
-
-
-    # Mean absolute difference 
-    gini_mean_diff = np.abs(np.subtract.outer(b, b)).mean()
-    # Relative mean absolute difference
-    r_gini_mean_diff = gini_mean_diff / np.mean(b)
-    
-    gini = r_gini_mean_diff/2
-
-    return {"gini": gini}
-
-
 
 
 

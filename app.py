@@ -2,7 +2,7 @@ import streamlit as st
 
 import numpy as np
 import pandas as pd
-from post_processing import post_processing
+from post_processing import post_processing, gini_index
 
 from visualizations import chart_market_animation, chart_gini
 
@@ -80,7 +80,8 @@ if __name__ == "__main__":
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("Gini Index")
-            chart_gini(df.gini)
+            df_gini = gini_index(df, TIMESTEPS)
+            chart_gini(df_gini)
 
         with col2:
             st.subheader("Trade Frequency")
