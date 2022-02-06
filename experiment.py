@@ -11,7 +11,7 @@ params = {
     "n_agents": [50],
     "avg_transaction_ammount": [50],
     "loan_type": [None],
-    "Interest": [False],
+    "loans_active": [False],
     "interest_rate": [0.05],
     "payment_increment": [2],
 }

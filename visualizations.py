@@ -9,7 +9,6 @@ import pandas as pd
 
 
 def chart_market_animation(df, TIMESTEPS):
-    #fig = plt.figure()
     fig, ax = plt.subplots(1, 1)
     plot = ax.bar([agent for agent in df], df.iloc[0])
     ax.set(xlabel='Agents', ylabel='Balance (USD)',
@@ -17,12 +16,7 @@ def chart_market_animation(df, TIMESTEPS):
     
 
     def animate_func(timestep):
-        
-        # Sort ??
-        #df_2.sort_values(by = timestep, axis=1, ascending = False)
-        #df_2.sort_index(inplace=True)
         ax.clear()
-        
         state = df.iloc[timestep]
         plot = ax.bar([agent for agent in df], state)
         ax.set_ylim([0, 5000])
@@ -32,7 +26,7 @@ def chart_market_animation(df, TIMESTEPS):
         fig,
         animate_func,
         frames=TIMESTEPS,
-        interval=200,  # in ms
+        interval=100,  # in ms
     )
 
     components.html(anim.to_jshtml(), height=600)

@@ -27,7 +27,7 @@ st.subheader("Simulation parameters:")
 col1, col2, col3 = st.columns(3)
 with col1:
     n_agents = st.slider('Number of agents', 10, 200, 30, 10)  # params: min, max, default, step
-    avg_transaction_ammount = st.slider('AVG transaction ammount', 10, 150, 100, 10)
+    avg_transaction_ammount = st.slider('AVG transaction ammount', 50, 500, 200, 50)
     st.markdown("**Simulation time horizon:**")
     TIMESTEPS = st.slider("Days: ", 14, 28*12, 28, 14)
     
@@ -37,32 +37,17 @@ with col2:
     
 with col3:
     st.subheader("")
-    interest_rate = st.slider("Interets Rate (%):", 1.0, 10.0, 2.0, 0.5) / 100
-    loan_type = st.selectbox("Loan type:", ('No Interest', 'Interest'))
-    interest = False
-    if loan_type == 'Interest': 
-        interest = True
-    
-
-
-
-# Update Simultion Parameters based on user input
-simulation.model.params.update({
-    "n_agents": [n_agents], 
-    "avg_transaction_ammount": [avg_transaction_ammount],
-    "interest": [interest],
-    "interest_rate": [interest_rate]
-})
-
-simulation.model.initial_state.update({
-    "balances": np.full(n_agents, 2000,  dtype=int)
-})
+    interest_rate = st.slider("Interets Rate (%):", 2.0, 20.0, 2.0, 1.0) / 100
+    option = st.selectbox("Loans:", ('Inactive', 'Active'), 0, help="If loans are activated, 'poorer' agents will loan money from 'wealthier' ones.")
+    loans_active = False # default
+    if option == 'Active': 
+        print("Loans Activated")
+        loans_active = True
 
 
 # Simulation & Post-processing
 if __name__ == "__main__":
 
-    simulation.timesteps = TIMESTEPS
 
     transactionChart = st.checkbox("Show market simulator") 
     st.text("(Note: increases load time significantly")
@@ -73,19 +58,36 @@ if __name__ == "__main__":
     # SIMULATE
     if simulate:
 
+        # Update Simultion Parameters based on user input
+        simulation.model.params.update({
+            "n_agents": [n_agents], 
+            "avg_transaction_ammount": [avg_transaction_ammount],
+            "loans_active": [loans_active],
+            "interest_rate": [interest_rate]
+        })
+
+        simulation.model.initial_state.update({
+            "balances": np.full(n_agents, 500,  dtype=int)
+        })
+
+        simulation.timesteps = TIMESTEPS
+
         st.write("Running simulation ..")
         result = simulation.run()
 
         df = pd.DataFrame(result)
-        #st.dataframe(df.balances)
+        st.dataframe(df.balances)
 
         # Post-processing 
         df_balance_spread = expand(df)
         #st.dataframe(df_balance_spread)
 
+        
+
         # Plot data:
-        st.subheader("Market Simulator")
+        
         if transactionChart:
+            st.subheader("Market Simulator:")
             chart_market_animation(df_balance_spread, TIMESTEPS)
 
         st.subheader("Gini Coefficient")
