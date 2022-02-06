@@ -21,7 +21,7 @@ Install dependancies
 pip install -r requirements.txt
 ```
 ----
-To enter/exit your virtual environment, in your project root, type:
+To enter / exit your virtual environment, in your project root, type:
 ```
 pipenv shell #to enter
 deactivate # or "CMD-D" to exit
@@ -31,7 +31,7 @@ Having trouble? See the following [guide](https://docs.streamlit.io/library/get-
 
 OR
 
-Setup virtual environemnt with Annaconda
+Setup virtual environment with Annaconda
 
 ### Run the app
 
