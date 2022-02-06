@@ -25,8 +25,10 @@ def p_transact(params, substep, state_history, previous_state):
         ammount = int(random.normal(mean, mean/2))
         #ammount = int(random.randint(mean/2, mean*2))
         if balances[i] > ammount*2:
+
             balances[i] -= ammount
             balances[recipient] += ammount
+                   
         
         elif loans_active: # Loan
             
@@ -42,7 +44,6 @@ def p_transact(params, substep, state_history, previous_state):
                     loans = np.append(loans, [[p, i, loan_ammount, payment]], axis=0) # [lender, borrower, ammount, payment]
                     break
 
-    
 
     return {"balances": balances, "loans": loans}      
 
@@ -54,14 +55,8 @@ def p_loan_payments(params, substep, state_history, previous_state):
 
     loans_active = params["loans_active"]
 
-    # Loop through loan arr and init payments
-   
-    
-
     if loans_active:
-        
         n_loans = loans.shape[0]
-        
         for i in range(n_loans):
 
             lender = loans[i][0]
@@ -69,21 +64,18 @@ def p_loan_payments(params, substep, state_history, previous_state):
             ammount = loans[i][2]
             payment = loans[i][3]
 
-            if payment < balances[borrower] * 2: # Can borrower can afford to make loan repayment
+            if payment != 0 and (payment < balances[borrower] * 2): # Can borrower can afford to make loan repayment  
                 if(ammount > payment): 
                     balances[lender] += payment
                     balances[borrower] -= payment
-                    loans[i][2] -= payment
-                    
-                else: # make final payment
+                    loans[i][2] -= payment     
+                elif balances[borrower] > ammount: # make final payment
                     balances[lender] += ammount # pay final due
                     balances[borrower] -= ammount
 
                     loans[i][3] = 0
-                
-        
-    # df_loans = DataFrame(n_loans)
-    # st.line_chart(df_loans)
+                    loans[i][2] = 0
+                    
 
     return {"balances": balances, "loans": loans}
 

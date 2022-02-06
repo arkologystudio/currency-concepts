@@ -37,7 +37,7 @@ with col2:
     
 with col3:
     st.subheader("")
-    interest_rate = st.slider("Interets Rate (%):", 2.0, 20.0, 2.0, 1.0) / 100
+    interest_rate = st.slider("Interets Rate (%):", 1.0, 15.0, 5.0, 1.0) / 100
     option = st.selectbox("Loans:", ('Inactive', 'Active'), 0, help="If loans are activated, 'poorer' agents will loan money from 'wealthier' ones.")
     loans_active = False # default
     if option == 'Active': 
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # SIMULATE
     if simulate:
 
-        # Update Simultion Parameters based on user input
+        # Update Simulation Parameters based on user input
         simulation.model.params.update({
             "n_agents": [n_agents], 
             "avg_transaction_ammount": [avg_transaction_ammount],
@@ -70,22 +70,21 @@ if __name__ == "__main__":
             "balances": np.full(n_agents, 500,  dtype=int)
         })
 
+        # RUN SIMULATION
         simulation.timesteps = TIMESTEPS
-
         st.write("Running simulation ..")
         result = simulation.run()
 
         df = pd.DataFrame(result)
-        st.dataframe(df.balances)
+        
 
-        # Post-processing 
+        # DATA POST-PROCESSING
+        st.subheader("Balances - DataFrame")
         df_balance_spread = expand(df)
-        #st.dataframe(df_balance_spread)
+        st.dataframe(df_balance_spread)
 
-        
 
-        # Plot data:
-        
+        # PLOT RESULTS
         if transactionChart:
             st.subheader("Market Simulator:")
             chart_market_animation(df_balance_spread, TIMESTEPS)
@@ -94,12 +93,6 @@ if __name__ == "__main__":
         df_gini = gini_index(df, TIMESTEPS)
         chart_gini(df_gini)
 
-        # col1, col2 = st.columns(2)
-        # with col1:
-        #     
-
-        # with col2:
-        #     st.subheader("Trade Frequency")
             
 
         
