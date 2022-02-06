@@ -1,6 +1,6 @@
 # Currency Concepts
 
-### Models &amp; simulations for demonstrating ideas &amp; principles related to post-capitalist economies
+### Interactive simulations demonstrating key monetary principles relevent to designing post-capitalist economies
 
 
 ### Setup your local Python environment
