@@ -20,7 +20,11 @@ def gini_index(df, TIMESTEPS):
             height += value
             area += height - value / 2.
         fair_area = height * (df.iloc[i]).size / 2
-        gini_arr[i] = (fair_area - area) / fair_area
+        gini_arr[i] = (fair_area - area) / fair_area * 100
 
     df_gini = DataFrame(gini_arr, columns=["Gini"])
+    df_gini['Timestep'] = range(0, TIMESTEPS)
     return df_gini
+
+
+    

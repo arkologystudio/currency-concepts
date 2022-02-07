@@ -1,11 +1,14 @@
 import streamlit as st
-
+import pandas as pd
 
 import matplotlib.animation as animation
 import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
 import plotly.express as px    
-import pandas as pd
+import altair as alt
+
+
+
 
 
 def chart_market_animation(df, TIMESTEPS):
@@ -35,4 +38,9 @@ def chart_market_animation(df, TIMESTEPS):
 
 def chart_gini(df):
     
-    st.line_chart(df, use_container_width=True)
+    #st.line_chart(df, use_container_width=True)
+    chart = alt.Chart(df).mark_line().encode(
+        x='Timestep',
+        y='Gini'
+    )
+    st.altair_chart(chart, use_container_width=True)
