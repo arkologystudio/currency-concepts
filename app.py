@@ -112,6 +112,7 @@ if __name__ == "__main__":
         # Market Simulator (animated line chart)
         if transactionChart:
             st.subheader("Market Simulator:")
+            st.text("Animated chart showing agent transactions over time.")
             chart_market_animation(df_balance_spread, TIMESTEPS)
     
 

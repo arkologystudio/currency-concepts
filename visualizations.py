@@ -12,6 +12,11 @@ import altair as alt
 
 
 def chart_market_animation(df, TIMESTEPS):
+
+    pct_complete = 0
+    my_bar = st.progress(pct_complete)
+    
+
     fig, ax = plt.subplots(1, 1)
     plot = ax.bar([agent for agent in df], df.iloc[0])
     ax.set(xlabel='Agents', ylabel='Balance (USD)',
@@ -19,6 +24,9 @@ def chart_market_animation(df, TIMESTEPS):
     
 
     def animate_func(timestep):
+
+        my_bar.progress(timestep/TIMESTEPS)
+
         ax.clear()
         state = df.iloc[timestep]
         plot = ax.bar([agent for agent in df], state)
