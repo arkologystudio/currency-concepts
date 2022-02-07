@@ -26,10 +26,7 @@ st.text("on wealth inequality indeces.")
 st.subheader("Simulation parameters:")
 col1, col2, col3 = st.columns(3)
 with col1:
-    n_agents = st.slider('Number of agents', 10, 200, 30, 10)  # params: min, max, default, step
-    avg_transaction_ammount = st.slider('AVG transaction ammount', 50, 500, 200, 50)
-    st.markdown("**Simulation time horizon:**")
-    TIMESTEPS = st.slider("Days: ", 14, 28*12, 28, 14)
+    n_agents = st.slider('Number of agents', 10, 100, 50, 10)  # params: min, max, default, step
     
 
 with col2:
@@ -45,13 +42,16 @@ with col3:
         loans_active = True
 
 
+st.markdown("**Simulation time horizon:**")
+TIMESTEPS = st.slider("Days: ", 50, 1000, 200, 50)
+
 # Simulation & Post-processing
 if __name__ == "__main__":
 
 
     transactionChart = st.checkbox("Show market simulator") 
-    st.text("(Note: increases load time significantly")
-    st.text("--------------------------------")
+    st.text("(Note: increases load time")
+    st.text("-------------------------------")
 
     simulate = st.button("Simulate")
 
@@ -61,7 +61,6 @@ if __name__ == "__main__":
         # Update Simulation Parameters based on user input
         simulation.model.params.update({
             "n_agents": [n_agents], 
-            "avg_transaction_ammount": [avg_transaction_ammount],
             "loans_active": [loans_active],
             "interest_rate": [interest_rate]
         })
@@ -79,9 +78,9 @@ if __name__ == "__main__":
         
 
         # DATA POST-PROCESSING
-        st.subheader("Balances - DataFrame")
+        #st.subheader("Balances - DataFrame")
         df_balance_spread = expand(df)
-        st.dataframe(df_balance_spread)
+        #st.dataframe(df_balance_spread)
 
 
         # PLOT RESULTS

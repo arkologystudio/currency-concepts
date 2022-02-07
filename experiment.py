@@ -9,15 +9,15 @@ from model import p_transact, p_loan_payments, s_balances, s_loans
 
 params = {
     "n_agents": [50],
-    "avg_transaction_ammount": [50],
+    "max_transaction_amount": [200],
     "loan_type": [None],
     "loans_active": [False],
     "interest_rate": [0.05],
-    "payment_increment": [2],
+    "n_instalments": [7],
 }
 
 initial_state = {
-    "balances": np.full(params["n_agents"][0], 500,  dtype=int), # randomize starting balances
+    "balances": np.full(params["n_agents"][0], 1000,  dtype=int), # randomize starting balances
     "loans": np.empty((0, 4), np.int16) # [lender, borrower, ammount, payment]
 }
 

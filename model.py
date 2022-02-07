@@ -15,15 +15,15 @@ def p_transact(params, substep, state_history, previous_state):
     loans = previous_state["loans"]
 
     nAgents = params["n_agents"]
-    mean = params["avg_transaction_ammount"]
+    max_transaction_amount = params["max_transaction_amount"]
     loans_active = params["loans_active"]
     interest_rate = params["interest_rate"]
-    payment_increment = params["payment_increment"]
+    n_instalments = params["n_instalments"]
 
     for i in range(nAgents):
         recipient = random.randint(0, nAgents)
-        ammount = int(random.normal(mean, mean/2))
-        #ammount = int(random.randint(mean/2, mean*2))
+        #ammount = int(random.normal(mean, mean/2))
+        ammount = int(random.randint(10, max_transaction_amount))
         if balances[i] > ammount*2:
 
             balances[i] -= ammount
@@ -40,7 +40,7 @@ def p_transact(params, substep, state_history, previous_state):
                     balances[recipient] += ammount 
                     # 3. Record loan
                     loan_ammount = int(ammount*(1+interest_rate))
-                    payment = int(loan_ammount / payment_increment)
+                    payment = int(loan_ammount / n_instalments)
                     loans = np.append(loans, [[p, i, loan_ammount, payment]], axis=0) # [lender, borrower, ammount, payment]
                     break
 
