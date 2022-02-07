@@ -16,7 +16,7 @@ from experiment import simulation
 
 # Introduction
 st.title("Currency Concepts | 2022")
-st.subheader("Model: Interest-bearing Loans - V.0.1")
+st.subheader("Model: Interest-bearing Loans - WIP")
 st.text("Agent-based radCAD/cadCAD simulation of a simple market economy.")
 st.text("The model aims to demonstrate the effect of interest-bearing loans")
 st.text("on wealth inequality indeces.")
@@ -53,7 +53,6 @@ if __name__ == "__main__":
 
 
     transactionChart = st.checkbox("Show market simulator") 
-    st.text("(Note: increases load time)")
     simulate = st.button("Simulate")
 
     # SIMULATE
@@ -108,6 +107,15 @@ if __name__ == "__main__":
 
         st.text("")
         chart_gini(df_gini)
+
+        # Country Reference
+        st.subheader("Comparison:")
+        st.text("Gini Index. World Bank estimate (2019).")
+        col1, col2, col3 = st.columns(3)
+        col1.metric(label="South Africa", value="63 %")
+        col2.metric(label="Portugal", value="33 %")
+        col3.metric(label="Czech Republic", value="25 %")
+
 
         # Market Simulator (animated line chart)
         if transactionChart:
