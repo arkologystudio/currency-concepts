@@ -1,27 +1,33 @@
 # Currency Concepts
 
-### Models &amp; simulations for demonstrating ideas &amp; principles related to post-capitalist economies
-
+### Interactive simulations demonstrating key monetary principles relevant to designing post-capitalist economies
 
 ### Setup your local Python environment
-
 
 Option 1: custom environment with Pipenv
 
 Install Pipenv:
+
 ```
 pip3 install pipenv
 ```
+
 Navigate to project route & create a new virtual environment:
+
 ```
 pipenv shell
 ```
+
 Install dependancies
+
 ```
 pip install -r requirements.txt
 ```
-----
+
+---
+
 To enter / exit your virtual environment, in your project root, type:
+
 ```
 pipenv shell #to enter
 deactivate # or "CMD-D" to exit
@@ -36,9 +42,9 @@ Setup virtual environment with Annaconda
 ### Run the app
 
 In the command line within your virtual environment, run:
+
 ```
 streamlit run app.py
 ```
+
 The app should now be available in a new browser window
-
-
