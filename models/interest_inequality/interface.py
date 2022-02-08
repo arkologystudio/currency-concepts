@@ -15,13 +15,13 @@ def load_interest_interface(simulation):
     st.header("A. Interest & Inequality")
     st.markdown("###### **A simple ABM (agent-based model) simulating a small market economy.**")
     st.markdown("The mode aims to demonstrate the effect of interest-bearing loans on wealth inequality indeces.")
-    st.markdown("_Inspired the original [Village Market Simulator](https://www.youtube.com/watch?v=04jV1zVROU8) by Will Ruddick (Grassroot Economics)_")
+    st.markdown("_Inspired by the original [Village Market Simulator](https://www.youtube.com/watch?v=04jV1zVROU8) by Will Ruddick (Grassroot Economics)_")
 
 
     with st.expander("DESCRIPTION & PURPOSE"):
         
         st.markdown("__Description:__")
-        st.markdown("Within this simulated market economy, 'agents' trade goods & services with one another. Agents trade fairly randomly, resulting in a wealth distribution (Gini Index: ~30%) similar to that of Hungary, Sweden or South Korea.")  
+        st.markdown("Within this simulated market economy, 'agents' trade goods & services with one another. Trading is fairly random resulting in a wealth distribution (Gini Index: ~30%) similar to that of Hungary, Sweden or South Korea.")  
         
         st.markdown("__Purpose:__")
         st.markdown("The model aims to demonstrate the effect of interest-bearing loans on wealth inequality indeces.")
@@ -38,7 +38,7 @@ def load_interest_interface(simulation):
         
     with st.expander("THINGS TO NOTICE"):
         st.markdown("- What happens to the Gini Index when interest-bearing loans are introduced?")
-        st.markdown("- At longer timeframes, does the Gini Index continue to increase with the introduction of loans?")
+        st.markdown("- With the introductions of loans, does the Gini Index continue to increase over time?")
         st.markdown("")
 
         
