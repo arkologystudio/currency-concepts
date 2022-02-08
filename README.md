@@ -21,8 +21,10 @@ pipenv shell
 Install dependancies
 
 ```
-pip install -r requirements.txt
+pipenv install --dev
 ```
+
+[Pipenv guide](https://realpython.com/pipenv-guide/)
 
 ---
 

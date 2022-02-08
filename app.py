@@ -12,7 +12,7 @@ from models.interest_inequality.interface import load_interest_interface
 # Introduction
 st.title("Currency Concepts")
 st.markdown("##### A protoype simulation environment for demonstrating key principles for post-capitalist monetary design.")
-st.markdown("_Developed by:_ List authors @ [Arkology Studio](https://arkology.co.za)")
+st.markdown("_Developed by:_ Ross Eyre, [Arkology Studio](https://arkology.co.za)")
 st.markdown("_Simulation library:_ [radCAD](https://github.com/CADLabs/radCAD) (inspired by cadCAD)")
 
 
