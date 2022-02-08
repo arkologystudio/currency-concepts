@@ -6,20 +6,51 @@ import math
 import pandas as pd
 
 from models.post_processing import expand, gini_index
-from models.visualizations import chart_market_animation, chart_gini
+from models.visualizations import chart_balances, chart_market_animation, chart_gini
 
 
 def load_interest_interface(simulation):
 
     # MODEL DESCRIPTION
-    st.header("Interest & Inequality")
-    st.text("Agent-based radCAD/cadCAD simulation of a simple market economy.")
-    st.text("The model aims to demonstrate the effect of interest-bearing loans")
-    st.text("on wealth inequality indeces.")
+    st.header("A. Interest & Inequality")
+    st.markdown("###### **A simple ABM (agent-based model) simulating a simple market economy.**")
+    st.markdown("The mode aims to demonstrate the effect of interest-bearing loans on wealth inequality indeces.")
+    st.markdown("_Inspired by Will Ruddick's (Grassroot Economics) original [Village Market Simulator](https://www.youtube.com/watch?v=04jV1zVROU8)._")
 
 
+    with st.expander("DESCRIPTION & PURPOSE"):
+        
+        st.markdown("__Description:__")
+        st.markdown("Within this simulated market economy, 'agents' trade goods & services with one another. Agents trade fairly randomly, resulting in a wealth distribution (Gini Index: ~30%) similar to that of Hungary, Sweden or South Korea.")  
+        
+        st.markdown("__Purpose:__")
+        st.markdown("The model aims to demonstrate the effect of interest-bearing loans on wealth inequality indeces.")
+
+
+    with st.expander("PARAMETERS & CHARTS"):
+        st.markdown("__Input Parameters:__")
+        st.markdown("As an analyst, you have the option to introduce interest-bearing loans to our simulated economy. When active, agents will take out loans with other agents if they cannot afford to make a desired transaction.")
+        st.markdown("Feel free to play with additional parameters such as _Interest-Rate_, _Time Horizon_ & _Number of Agents_")
+        
+        st.markdown("__Charts:__")
+        st.markdown("To give us an idea of the wealth distribution within our simulated economy the model calculates the Gini Coefficient / Index which is a statistical measure of wealth inequality between 0 - 100% (zero being the most equal)")
+        st.markdown("If 'Market Simulator' is selected, an animated chart will also be rendered, showing the agents' balances over time. Feel free to cross compare the balances with the Gini Index at a given timestep to gain an intuition about their relationship.")
+        
+    with st.expander("THINGS TO NOTICE"):
+        st.markdown("- What happens to the Gini Index when interest-bearing loans are introduced?")
+        st.markdown("- At longer timeframes, does the Gini Index continue to increase with the introduction of loans?")
+        st.markdown("")
+
+        
     # PARAMETER INPUTS
-    st.subheader("Simulation parameters:")
+    st.markdown("")
+    st.markdown("")
+    st.markdown("#### STEP 2:")
+    st.markdown("###### Set your experiment parameters")
+    st.markdown("⬇")
+    st.markdown("")
+
+    st.markdown("#### Simulation parameters:")
     col1, col2, col3 = st.columns(3)
     with col1:
 
@@ -40,7 +71,7 @@ def load_interest_interface(simulation):
 
     st.text("----------------------------------------------------------------------------------")
 
-    transactionChart = st.checkbox("Show market simulator") 
+    transactionChart = st.checkbox("Show market simulator", True) 
     simulate = st.button("Simulate")
 
 
@@ -66,19 +97,34 @@ def load_interest_interface(simulation):
         result = simulation.run()
         st.text("----------------------------------------------------------------------------------")
 
+        st.markdown("")
+        st.markdown("")
+        st.markdown("#### STEP 3:")
+        st.markdown("###### Analyse your results")
+        st.markdown("⬇")        
+        st.markdown("")
+        st.markdown("")
 
-        df = pd.DataFrame(result)
-        
-
-        # DATA POST-PROCESSING
-        #st.subheader("Balances - DataFrame")
-        df_balance_spread = expand(df)
-        #st.dataframe(df_balance_spread)
 
 
         # PLOT RESULTS
 
-        # Gini index (line chart)
+        df = pd.DataFrame(result)
+        df_balance_spread = expand(df)
+
+        st.subheader("Agent Balances:")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("###### _Timestep:_ 0")
+            chart_balances(df_balance_spread, 0)
+        with col2:
+            st.markdown("###### _Timestep:_ " + str(TIMESTEPS))
+            chart_balances(df_balance_spread, TIMESTEPS)
+
+
+        # GINI 
+        st.markdown("")
         st.subheader("Gini Coefficient:")
         df_gini = gini_index(df, TIMESTEPS)        
 
@@ -90,15 +136,15 @@ def load_interest_interface(simulation):
             st.metric(label="Gini Index (Final)", value=(str(round(gini_final)) + " %"), delta=(str(gini_delta) + " %"))
 
         with col2: 
-            gini_avg = round(df_gini['Gini'].mean(axis = 0), 2)
+            gini_avg = round(df_gini['Gini'].mean(axis = 0))
             st.metric(label="Gini Index (AVG)", value= (str(gini_avg) + " %"))
 
         st.text("")
         chart_gini(df_gini)
 
         # Country Reference
-        st.subheader("Comparison:")
-        st.text("Gini Index. World Bank estimate (2019).")
+        st.markdown("##### Comparison:")
+        st.markdown("_Gini Index. [World Bank estimate (2019)](https://data.worldbank.org/indicator/SI.POV.GINI/)._")
         col1, col2, col3 = st.columns(3)
         col1.metric(label="South Africa", value="63 %")
         col2.metric(label="Portugal", value="33 %")
@@ -107,6 +153,8 @@ def load_interest_interface(simulation):
 
         # Market Simulator (animated line chart)
         if transactionChart:
+            st.markdown("")
             st.subheader("Market Simulator:")
-            st.text("Animated chart showing agent transactions over time.")
+            st.text("Animated chart showing agent balances over time.")
+            
             chart_market_animation(df_balance_spread, TIMESTEPS)

@@ -11,35 +11,31 @@ from models.interest_inequality.interface import load_interest_interface
 
 # Introduction
 st.title("Currency Concepts")
-st.subheader("Models: ..")
-st.text("Write up about the project")
-
+st.markdown("##### A protoype simulation environment for demonstrating key principles for post-capitalist monetary design.")
+st.markdown("_Developed by:_ List authors @ [Arkology Studio](https://arkology.co.za)")
 
 
 # MODEL SELECTION
-model = st.selectbox("Model:", ('Interest & Inequality', '..another model'), 0, help="Choose a model to investigate")
+st.markdown("")
+st.markdown("")
+st.markdown("#### STEP 1:")
+st.markdown("###### Choose a model below to get started")
+st.markdown("⬇")
+st.markdown("")
+st.markdown("")
+model = st.selectbox("Model:", ('Choose a model', 'A. Interest & Inequality', '..another model'), 0)
 
 st.text("----------------------------------------------------------------------------------")
 
 
-if model == 'Interest & Inequality':
+if model == 'A. Interest & Inequality':
     simulation = simulation_interest_inequality
     load_interest_interface(simulation)
 
 else:
-    
-    st.text("Select a simulation above.")
+    st.caption("Select a simulation above.")
 
 
-
-
-
-
-
-# if __name__ == "__main__":
-
-    
-    
 
     
 

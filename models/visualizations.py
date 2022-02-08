@@ -9,6 +9,32 @@ import altair as alt
 
 
 
+def chart_balances(df, timestep):
+    
+    # fig, ax = plt.subplots(1, 1)
+    # plot = ax.bar([agent for agent in df], df.iloc[0])
+    # ax.set(xlabel='Agents', ylabel='Balance (USD)',
+    #    title='Account Balances')
+    # ax.set_ylim([0, 5000])
+
+    balanceArr = [agent for agent in df.iloc[timestep]]
+    df = pd.DataFrame(balanceArr, columns=["Balance"])
+    df['Agents'] = range(0, df.size)
+    
+    #st.bar_chart(df)
+
+    chart = alt.Chart(df).mark_bar().encode(
+        x='Agents:O',
+        y='Balance:Q'
+    )
+
+    # rule = alt.Chart(df).mark_rule(color='red').encode(
+    #     y='mean(Balance):Q'
+    # )
+
+    # (chart + rule).properties(width=600)
+    
+    st.altair_chart(chart, use_container_width=True)
 
 
 def chart_market_animation(df, TIMESTEPS):
