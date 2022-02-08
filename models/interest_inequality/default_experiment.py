@@ -4,15 +4,14 @@
 from radcad import Model, Simulation, Experiment
 
 import numpy as np
-from model import p_transact, p_loan_payments, s_balances, s_loans
+from models.interest_inequality.interest_inequality import p_transact, p_loan_payments, s_balances, s_loans
 
 
 params = {
     "n_agents": [50],
     "max_transaction_amount": [500],
-    "loan_type": [None],
     "loans_active": [False],
-    "interest_rate": [0.05],
+    "interest_rate": [0.075],
     "n_instalments": [7],
 }
 
@@ -25,8 +24,7 @@ initial_state = {
 state_update_blocks = [
     {
         "policies": {
-            "transactions": p_transact,
-            
+            "transactions": p_transact,  
         },
         "variables": {
             "balances": s_balances,
@@ -44,7 +42,7 @@ state_update_blocks = [
     }
 ]
 
-TIMESTEPS = 30 # default
+TIMESTEPS = 60 # default
 RUNS = 1
 
 model = Model(
@@ -52,4 +50,4 @@ model = Model(
     state_update_blocks=state_update_blocks,
     params=params,
 )
-simulation = Simulation(model=model, timesteps=TIMESTEPS, runs=RUNS)
+simulation_interest_inequality = Simulation(model=model, timesteps=TIMESTEPS, runs=RUNS)
