@@ -41,7 +41,7 @@ def chart_market_animation(df, TIMESTEPS):
         ax.clear()
         state = df.iloc[timestep]
         plot = ax.bar([agent for agent in df], state)
-        ax.set_ylim([0, 5000])
+        ax.set_ylim([0, 6000])
         return [plot]
 
     anim = animation.FuncAnimation(
@@ -50,9 +50,10 @@ def chart_market_animation(df, TIMESTEPS):
         frames=TIMESTEPS,
         interval=60,  # in ms
     )
-
+    
     components.html(anim.to_jshtml(), height=600)
-
+    
+    
 
 
 def chart_gini(df):

@@ -126,6 +126,7 @@ def load_interest_interface(simulation):
         # GINI 
         st.markdown("")
         st.subheader("Gini Coefficient:")
+        st.markdown("A statistical measure of wealth inequality (0% = perfect equality)")
         df_gini = gini_index(df, TIMESTEPS)        
 
         col1, col2 = st.columns(2)
