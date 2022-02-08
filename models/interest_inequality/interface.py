@@ -13,9 +13,9 @@ def load_interest_interface(simulation):
 
     # MODEL DESCRIPTION
     st.header("A. Interest & Inequality")
-    st.markdown("###### **A simple ABM (agent-based model) simulating a simple market economy.**")
+    st.markdown("###### **A simple ABM (agent-based model) simulating a small market economy.**")
     st.markdown("The mode aims to demonstrate the effect of interest-bearing loans on wealth inequality indeces.")
-    st.markdown("_Inspired by Will Ruddick's (Grassroot Economics) original [Village Market Simulator](https://www.youtube.com/watch?v=04jV1zVROU8)._")
+    st.markdown("_Inspired the original [Village Market Simulator](https://www.youtube.com/watch?v=04jV1zVROU8) by Will Ruddick (Grassroot Economics)_")
 
 
     with st.expander("DESCRIPTION & PURPOSE"):

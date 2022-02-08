@@ -4,35 +4,21 @@ import pandas as pd
 import matplotlib.animation as animation
 import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
-import plotly.express as px    
 import altair as alt
 
 
 
 def chart_balances(df, timestep):
     
-    # fig, ax = plt.subplots(1, 1)
-    # plot = ax.bar([agent for agent in df], df.iloc[0])
-    # ax.set(xlabel='Agents', ylabel='Balance (USD)',
-    #    title='Account Balances')
-    # ax.set_ylim([0, 5000])
-
     balanceArr = [agent for agent in df.iloc[timestep]]
     df = pd.DataFrame(balanceArr, columns=["Balance"])
     df['Agents'] = range(0, df.size)
     
-    #st.bar_chart(df)
 
     chart = alt.Chart(df).mark_bar().encode(
         x='Agents:O',
         y='Balance:Q'
     )
-
-    # rule = alt.Chart(df).mark_rule(color='red').encode(
-    #     y='mean(Balance):Q'
-    # )
-
-    # (chart + rule).properties(width=600)
     
     st.altair_chart(chart, use_container_width=True)
 
@@ -42,7 +28,6 @@ def chart_market_animation(df, TIMESTEPS):
     pct_complete = 0
     my_bar = st.progress(pct_complete)
     
-
     fig, ax = plt.subplots(1, 1)
     plot = ax.bar([agent for agent in df], df.iloc[0])
     ax.set(xlabel='Agents', ylabel='Balance (USD)',
@@ -63,7 +48,7 @@ def chart_market_animation(df, TIMESTEPS):
         fig,
         animate_func,
         frames=TIMESTEPS,
-        interval=100,  # in ms
+        interval=60,  # in ms
     )
 
     components.html(anim.to_jshtml(), height=600)

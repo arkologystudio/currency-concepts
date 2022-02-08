@@ -13,6 +13,7 @@ from models.interest_inequality.interface import load_interest_interface
 st.title("Currency Concepts")
 st.markdown("##### A protoype simulation environment for demonstrating key principles for post-capitalist monetary design.")
 st.markdown("_Developed by:_ List authors @ [Arkology Studio](https://arkology.co.za)")
+st.markdown("_Simulation library:_ [radCAD](https://github.com/CADLabs/radCAD) (inspired by cadCAD)")
 
 
 # MODEL SELECTION
@@ -23,7 +24,7 @@ st.markdown("###### Choose a model below to get started")
 st.markdown("⬇")
 st.markdown("")
 st.markdown("")
-model = st.selectbox("Model:", ('Choose a model', 'A. Interest & Inequality', '..another model'), 0)
+model = st.selectbox("Model:", ('Choose a model', 'A. Interest & Inequality'), 0)
 
 st.text("----------------------------------------------------------------------------------")
 
@@ -33,7 +34,7 @@ if model == 'A. Interest & Inequality':
     load_interest_interface(simulation)
 
 else:
-    st.caption("Select a simulation above.")
+    st.caption("")
 
 
 

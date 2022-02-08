@@ -1,3 +1,4 @@
 .Pipfile
+.Pipfile.lock
 __pycache__/
 .scratch_pad
