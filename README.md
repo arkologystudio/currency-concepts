@@ -1,6 +1,10 @@
-# Currency Concepts
+# Currency Concepts V.01
 
 ### Interactive simulations demonstrating key monetary principles relevant to designing post-capitalist economies
+
+Try the app live: https://share.streamlit.io/arkologystudio/currency-concepts/main/app.py 
+
+-----------------------------------------
 
 ### Setup your local Python environment
 
